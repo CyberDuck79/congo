@@ -20,7 +20,7 @@
     <h1 class="text-4xl font-extrabold">
       {{ .Site.Author.name | default .Site.Title }}
     </h1>
-    {{ with .Site.Author.headline }}
+    {{ with .Site.Author.headline | markdownify | emojify }}
       <h2 class="text-xl text-neutral-500 dark:text-neutral-400">
         {{ . }}
       </h2>
