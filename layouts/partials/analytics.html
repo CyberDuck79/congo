@@ -7,5 +7,7 @@
     {{ end }}
   {{ end }}
   {{ template "_internal/google_analytics.html" . }}
-  <script async defer data-website-id="8f527430-0c6d-4c62-827f-8cebd95d30a1" src="https://analytics.cyberduck.blog/umami.js"></script>
+  {{ if .Site.Params.analytics.enabled | default false }}
+    <script async defer data-website-id="8f527430-0c6d-4c62-827f-8cebd95d30a1" src="https://analytics.cyberduck.blog/umami.js"></script>
+  {{ end }}
 {{ end }}
