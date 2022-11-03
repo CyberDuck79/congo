@@ -322,12 +322,19 @@ function new_gen() {
   roots.show();
 }
 
+function keyPressed() {
+  if (key == 's') {
+    saveCanvas(`plants_${seed}`, 'png')
+  }
+}
+
 function mousePressed(event) {
   seed++;
 	new_gen();
 }
 
 function setup() {
-  createCanvas(560,790);
+  canvas = createCanvas(560,820);
+  canvas.parent('p5-holder');
   new_gen();
 }
