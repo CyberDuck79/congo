@@ -37,7 +37,6 @@ class Branch {
 
     this.show = function () {
       if (parent) {
-        stroke(rod_color[0], rod_color[1], rod_color[2], 240);
         line(this.pos.x, this.pos.y, this.parent.pos.x, this.parent.pos.y);
       }
     };
@@ -46,6 +45,10 @@ class Branch {
 
 class Roots {
   constructor() {
+    translate(0, 0);
+    resetMatrix();
+    strokeWeight(1.9);
+    stroke(rod_color[0], rod_color[1], rod_color[2], 255);
     this.leaves = [];
     this.branches = [];
 
@@ -190,7 +193,7 @@ function generate() {
 
 function draw_leaf(color) {
   noStroke();
-  fill(leaf_color[0], leaf_color[1], leaf_color[2], 160);
+  fill(color[0], color[1], color[2], 160);
   let pts = [
     createVector(0, -9), //top
     createVector(-6, 0),//left
@@ -229,22 +232,6 @@ function draw_leaf(color) {
   line(0, 5, 0, 0);
 }
 
-function draw_flower() {
-  noStroke();
-  const flowerSize = random(12, 18);
-  const petalSize = flowerSize / 2;
-  const spacing = petalSize / 2;
-  
-  fill(rod_color[0], rod_color[1], rod_color[2], 160);
-  circle(-spacing, -spacing, petalSize);
-  circle(spacing, -spacing, petalSize);
-  circle(-spacing, spacing, petalSize);
-  circle(spacing, spacing, petalSize);
-  
-  fill(leaf_color[0], leaf_color[1], leaf_color[2], 240);
-  circle(0, 0, petalSize / 1.2);
-}
-
 function turtle() {
   resetMatrix();
   translate(width / 2, (height / 2) + 132);
@@ -257,7 +244,7 @@ function turtle() {
       translate(0, -len);
     } else if (current == "X" || current == "Y") {
       translate(0, -4);
-      draw_leaf();
+      draw_leaf(leaf_color);
     } else if (current == "+") {
       angle = radians(random(system.angle_min, system.angle_max));
       rotate(angle);
@@ -304,7 +291,7 @@ let palettes = [
 	[[53, 80, 112], [181, 101, 118], [234, 172, 139]],
 	[[109, 89, 122], [181, 101, 118], [229, 107, 111]]
 ];
-var seed = Number(new Date());
+var seed = 0;
 
 function set_vars() {
   let palette = random(palettes);
@@ -324,24 +311,15 @@ function new_gen() {
   noStroke();
   rect(0, (height / 2) + 148, width, (height / 2) - 110);
   for (var i = 0; i < 6; ++i) {
-     generate();
+    generate();
   }
   print(sentence);
   turtle();
-  translate(0, 0);
-  resetMatrix();
-  strokeWeight(1.8);
   var roots = new Roots();
   for (var i = 0; i < 40; ++i) {
-    roots.grow();
+     roots.grow();
   }
   roots.show();
-}
-
-function keyPressed() {
-  if (key == 's') {
-    saveCanvas(`plants_${seed}`, 'png')
-  }
 }
 
 function mousePressed(event) {
@@ -350,7 +328,6 @@ function mousePressed(event) {
 }
 
 function setup() {
-  canvas = createCanvas(560,820);
-  canvas.parent('p5-holder');
+  createCanvas(560,790);
   new_gen();
 }
