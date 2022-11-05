@@ -305,6 +305,8 @@ function set_vars() {
 }
 
 function new_gen() {
+  seed = Date.now();
+  Math.seedrandom(seed);
   set_vars();
   fill(leaf_color);
   noStroke();
@@ -327,14 +329,9 @@ function keyPressed() {
   }
 }
 
-function mousePressed(event) {
-  seed++;
-	new_gen();
-}
-
 function setup() {
   canvas = createCanvas(560,820);
   canvas.parent('p5-holder');
-  Math.seedrandom(Date.now());
+  canvas.mousePressed(new_gen);
   new_gen();
 }
