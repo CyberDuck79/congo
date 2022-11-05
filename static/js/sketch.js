@@ -305,7 +305,6 @@ function set_vars() {
 }
 
 function new_gen() {
-  Math.seedrandom(seed);
   set_vars();
   fill(leaf_color);
   noStroke();
@@ -336,5 +335,6 @@ function mousePressed(event) {
 function setup() {
   canvas = createCanvas(560,820);
   canvas.parent('p5-holder');
+  Math.seedrandom(Date.now());
   new_gen();
 }
