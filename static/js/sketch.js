@@ -329,9 +329,14 @@ function keyPressed() {
   }
 }
 
+function mousePressed(event) {
+  if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0) {
+    new_gen();
+  }
+}
+
 function setup() {
   canvas = createCanvas(560,820);
   canvas.parent('p5-holder');
-  canvas.mousePressed(new_gen);
   new_gen();
 }
